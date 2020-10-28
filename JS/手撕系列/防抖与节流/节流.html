@@ -1,0 +1,101 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>防抖</title>
+</head>
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: rgb(120, 134, 41);
+  }
+
+  .wrapper1 {
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: aquamarine;
+  }
+
+  .wrapper2 {
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    left: 0;
+    right: 50%;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: aquamarine;
+  }
+
+  input{
+    width: 100%;
+    height: 30px;
+    margin: 100px 0;
+  }
+  #d1{
+    width: 100%;
+    height: 300px;
+    background: khaki;
+  }
+
+  #d2{
+    width: 100%;
+    height: 300px;
+    background: darkcyan;
+  }
+</style>
+
+<body>
+  <div class="wrapper1">
+    <input id="input1" type="text">
+    <div id="d1">未节流</div>
+  </div>
+  <div class="wrapper2">
+    <input id="input2" type="text">
+    <div id="d2">节流</div>
+  </div>
+</body>
+<script>
+  let input1 = document.querySelector("#input1")
+  let d1 = document.querySelector("#d1")
+  let input2 = document.querySelector("#input2")
+  let d2 = document.querySelector("#d2")
+  input1.addEventListener('input', () => {
+    d1.innerHTML = input1.value
+  })
+
+  input2.addEventListener('input', throttle(() => {
+    d2.innerHTML = input2.value
+  }, 500, true))
+
+  /*
+   *节流类似于技能cd,指定时间内只能触发一次,只有当冷却好了才可以使用
+   */
+  function throttle(fn, delay) {
+    let cd = true
+    return function (...args) {
+      if (!cd) return
+      cd = false
+      setTimeout(() => {
+        fn.apply(this, args)
+        cd = true
+      }, delay);
+    }
+  }
+
+
+</script>
+
+</html>
