@@ -95,16 +95,23 @@
   function debounce(fn, delay, triggerNow) {
     let timer = null
     return function (...args) {
+      //非立即执行版本,忽略triggerNow的分支就行
       //第一次触发事件时,timer为null,会走else分支,进入else分支后会使用定时器延迟delay时间再去执行fn,此时timer是有值的
       //如果在第一次定时器时间内fn还未执行,由于闭包,下一次触发事件时,timer不再是null,而是第一次进入时timer的值,
       //所以会走if分支,首先会把第一次/上一次触发的timer清除掉(所以上一次的fn事件还未执行就被删除掉了),
       //并且将本次的定时器事件的值重新赋值给timer
       //每次进来都会执行以上步骤,直到在delay时间内没有再次触发事件,所以timer不会被清除,自然的执行fn方法
+
+      //立即执行版本,只需要走第一个triggerNow的if分支就行
+      //第一次触发事件时,timer为空,所以第一个if不会走,如果是立即执行则就进入第二个if分支
+      //进入第二个if分支后,首先定义一个标识flag,并且第一次进来时flag为true,再定义一个定时器,在delay时间后timer为空
+      //第一次flag为true 所以先会执行一次用户绑定的操作
+      //如果用户在delay时间内再次触发事件,此时timer有值,会进入第一个flag,将上一次的定时器取消
+      //虽然timer的事件被取消了,但是timer依旧是有值的,只是这个值指向的定时器事件被取消了而已,
+      //所以第二次进入triggerNow分支时,flag为false,然后重新给timer定义一个定时器事件,在delay后timer才为null,只有在delay后才会继续执行fn方法
       if (timer) {
         clearTimeout(timer)
-        timer = setTimeout(fn, delay)
       }
-
       if (triggerNow) {
         let flag = !timer
         timer = setTimeout(() => {
