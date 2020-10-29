@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>输出结果</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+</body>
+<script>
+  function Foo() {
+    getName = function () { console.log(1); };
+    return this;
+  }
+  Foo.getName = function () { console.log(2); };
+  Foo.prototype.getName = function () { console.log(3); };
+  var getName = function () { console.log(4); };
+  function getName() { console.log(5); }
+
+  /**
+   * 1、首先Foo.getName()
+   *  直接在全局中找到Foo.getName属性并且执行所以输出2
+   * 2、getName()
+   *  这里 会先看到最后两行代码
+   *  var getName = function () { console.log(4); };
+   *  function getName() { console.log(5); }
+   *  由于变量定义的原因,这两行代码实际分解需要先分解一下,因为变量是要先声明操作再进行赋值操作的。所以如下
+   *  var getName;  先声明一个getName的变量
+   *  function getName() { console.log(5); }  再将之前getName变量覆盖声明一个getName的函数
+   *  getName = function () { console.log(4); };  最后再进行赋值操作,即又对getName进行赋值操作
+   *  所以getName() 最后会执行输出4
+   * 3、Foo().getName()
+   *  首先找到Foo() 并且执行,在Foo()当中首先进行了赋值操作
+   *  因为这个getName在当前函数中没有定义,所以就会沿着作用域链往外找,外层有一个getName的变量
+   *  所以这个操作实际上就是在对window下的getName变量进行赋值操作,
+   *  所以window的getName又变成了function () { console.log(1); };
+   *  然后这个函数将this返回,这里的this应该是调用Foo()的this,Foo()是在window下调用的,
+   *  所以返回的this实际上就是window
+   *  接下来再 进行window.getName()  由于window下的getName()方法已经被之前赋值过
+   *  所以执行的输入结果就是1
+   * 4、getName()
+   *  这个和3同理,就是又执行了一次 同样还是输入1
+   * 5、new Foo.getName()
+   *  这里需要知道操作符的操作优先级, 在这里'.' 的优先级最高然后再'()' 最后再 进行new操作
+   *  所以执行先看Foo.getName() 这个操作 执行输入2,然后执行new,但是返回值没有被接收,所以这个操作并无意义
+   * 6、new Foo().getName()
+   *  (new Foo()).getName()
+   *  带参数的new操作符是优先级最高的,所以会先执行new Foo()的操作返回一个Foo的实例对象
+   *  这个实例对象再去.getName() ,所以最终执行输出3
+   * 7、new new Foo().getName()
+   *  这个同理new ((new Foo()).getName)()
+   *  先初始化Foo的实例化对象，然后将其原型上的getName函数作为构造函数再次new。
+   *  所以最终执行输出3
+   */
+
+
+
+
+
+
+
+
+
+  //请写出以下输出结果：
+  Foo.getName();            //2
+  getName();                //4
+  Foo().getName();          //1
+  getName();                //1
+  new Foo.getName();        //2
+  new Foo().getName();      //3
+  new new Foo().getName();  //3
+</script>
+
+</html>
