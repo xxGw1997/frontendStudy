@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>盒模型</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: rgb(0, 177, 177);
+  }
+
+  .box1 {
+    width: 200px;
+    height: 200px;
+    border: 20px solid black;
+    padding: 50px;
+    margin: 50px;
+  }
+
+  .info {
+    margin-left: 50px;
+  }
+
+  .left {
+    float: left;
+  }
+
+  .right {
+    float: right;
+  }
+
+  .box2 {
+    width: 200px;
+    height: 200px;
+    border: 20px solid black;
+    padding: 50px;
+    margin: 50px;
+    box-sizing: border-box;
+  }
+</style>
+
+<body>
+  <div class="left">
+    <div class="box1">ssssssssssssssssssssssss</div>
+    <div class="info">
+      .box1 {</br>
+      &nbsp;&nbsp;&nbsp; width: 200px;</br>
+      &nbsp;&nbsp;&nbsp; height: 200px;</br>
+      &nbsp;&nbsp;&nbsp; border: 20px solid black;</br>
+      &nbsp;&nbsp;&nbsp; padding: 50px;</br>
+      &nbsp;&nbsp;&nbsp; margin: 50px;</br>
+      }
+    </div>
+    标准盒模型:
+    元素内容占据的空间是由 width 属性设置的，而内容周围的</br>
+    padding 和 border 值是另外计算的；即在标准模式下的盒模型，</br>
+    盒子实际内容（content）的width/height=我们设置的width/height;</br>
+    盒子总宽度/高度=width/height+padding+border+margin。</br>
+    即:盒子内容区域文字开始的地方才是content区域
+  </div>
+  <div class="right">
+    <div class="box2">2222</div>
+    <div class="info">
+      .box2 {</br>
+      &nbsp;&nbsp;&nbsp; width: 200px;</br>
+      &nbsp;&nbsp;&nbsp; height: 200px;</br>
+      &nbsp;&nbsp;&nbsp; border: 20px solid black;</br>
+      &nbsp;&nbsp;&nbsp; padding: 50px;</br>
+      &nbsp;&nbsp;&nbsp; margin: 50px;</br>
+      }
+    </div>
+    怪异盒模型:</br>
+    浏览器的 width 属性不是内容的宽度，而是内容、内边距和边框的宽度的总和；</br>
+    即在怪异模式下的盒模型，</br>
+    盒子的（content）宽度+内边距padding+边框border宽度=我们设置的width(height也是如此)，</br>
+    盒子总宽度/高度=width/height + margin = 内容区宽度/高度 + padding + border + margin。</br>
+  </div>
+</body>
+
+</html>
