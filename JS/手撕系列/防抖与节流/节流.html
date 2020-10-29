@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>🍣防抖</title>
+  <title>🍣节流</title>
 </head>
 <style>
   html,
@@ -78,7 +78,7 @@
 
   input2.addEventListener('input', throttle(() => {
     d2.innerHTML = input2.value
-  }, 500, true))
+  }, 1000, true))
 
   /*
    *节流类似于技能cd,指定时间内只能触发一次,只有当冷却好了才可以使用
