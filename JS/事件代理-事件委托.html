@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>事件委托与事件代理</title>
+</head>
+<style>
+  html,body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .div1{
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    background: goldenrod;
+    margin: 100px;
+  }
+
+  .div2{
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    background: green;
+    margin: 100px 100px;
+  }
+  .div-wrap{
+    width: 200px;
+    height: 200px;
+    line-height: 100px;
+    /* text-align: center; */
+    background: gold;
+    margin: 100px 100px;
+  }
+  .div-inner{
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    background: lightcoral;
+    position: relative;
+    margin-left: 50px;
+    margin-top: -50px;
+  }
+</style>
+<body>
+    <div class="div1">
+      click1
+    </div>
+
+    <div class="div2">
+      click2
+    </div>
+
+    <div class="div-wrap">wrap
+      <div class="div-inner">inner</div>
+    </div>
+</body>
+<script>
+  window.onload = function(){
+    //click1
+    //这种方式的绑定点击事件,如果是同一种事件,后绑定的会将先绑定的覆盖
+    //所以点击d1后控制台输入的只有'第二次绑定打印'
+    let d1 = document.querySelector(".div1")
+    d1.onclick = () => console.log('第一次绑定打印')
+    d1.onclick = () => console.log('第二次绑定打印')
+
+
+    //click2
+    //第二种方式的绑定点击事件,同时给同一个事件进行绑定,
+    //两次绑定的函数都会执行
+    let d2 = document.querySelector(".div2")
+    d2.addEventListener('click',()=>console.log('第一次绑定打印'))
+    d2.addEventListener('click',()=>console.log('第二次绑定打印'))
+
+    //事件捕获和事件冒泡机制
+    //也就是  addEventListener('typeName',fn,useCapture) 的第三个参数useCapture
+    //useCapture 默认是false 为事件冒泡    true 为事件捕获
+    /*
+    <div class="div-wrap">wrap
+      <div class="div-inner">inner</div>
+    </div>
+
+    */
+    //1、useCapture为false时  事件冒泡  如果点击内层div 
+    //打印台输出的: 内层 -> 外层
+    //当一个事件触发后,从Window对象触发,不断经过下级节点,直到目标节点。当事件到达目标节点后，会沿着捕获阶段的路线原路返回。所有经过的节点,都会触发对应的事件
+    let dwrap = document.querySelector(".div-wrap")
+    let dinner = document.querySelector(".div-inner")
+    dwrap.addEventListener('click',()=>{
+      console.log('冒泡:外层')
+    },false)
+    dinner.addEventListener('click',()=>{
+      console.log('冒泡:内层')
+    },false)
+    //2、useCapture为true时  事件捕获  如果点击内层div 
+    //打印台输出的: 外层 -> 内层
+    //当一个事件触发后,从Window对象触发,不断经过下级节点,直到目标节点。在事件到达目标节点之前的过程就是捕获阶段。所有经过的节点,都会触发对应的事件
+    dwrap.addEventListener('click',()=>{
+      console.log('捕获:外层')
+    },true)
+    dinner.addEventListener('click',()=>{
+      console.log('捕获:内层')
+    },true)
+  }
+</script>
+</html>
