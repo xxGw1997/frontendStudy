@@ -27,7 +27,7 @@ npm install postcss-px2rem --save
         postcss: {
           plugins: [
             require('postcss-px2rem')({
-              remUnit: 75
+              remUnit: 37.5
             }), // 换算的基数
           ]
         }
@@ -52,7 +52,7 @@ module.exports = {
   plugins: {
     autoprefixer: {},
     'postcss-px2rem-exclude': {
-      remUnit: 75,
+      remUnit: 37.5,
       exclude: /node_modules/i,
     },
   },
