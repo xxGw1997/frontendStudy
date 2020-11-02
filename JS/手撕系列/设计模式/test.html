@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+</body>
+<script>
+  class Event {
+    constructor() {
+    }
+    //进行记录订阅者的回调对象,对象一般是一些对应事件的数组
+    //某个事件一般会有一个或多个订阅者回调方法
+    events = {}
+
+    //添加订阅者的方法
+    _addEventListener(type, fn) {
+      //首先在events中查找有没有type事件类型的数组容器
+      //如果有,则在对应type事件容器直接放入fn回调就行
+      //如果没有,则先在events创建一个type事件容器再放入fn回调
+      if (!this.events[type]) this.events[type] = []
+      this.events[type].push(fn)
+    }
+
+    //发布时,通知事件执行
+    _dispatchEvent(type, ...args) {
+      this.events[type].forEach(fn => {
+        fn(...args)
+      });
+    }
+
+    //移除事件,万一别人反悔了呢
+    _removeEventListener(type, handler) {
+      // 无效事件抛出
+      if (!(type in this.events)) {
+        return new Error('无效事件')
+      }
+      if (!handler) {
+        // 直接移除事件
+        delete this.events[type]
+      } else {
+        const idx = this.events[type].findIndex(ele => ele === handler)
+        // 抛出异常事件
+        if (idx === -1) {
+          return new Error('无该绑定事件')
+        }
+        // 移除事件
+        this.events[type].splice(idx, 1)
+        if (this.events[type].length === 0) {
+          delete this.events[type]
+        }
+      }
+    }
+  }
+
+
+
+
+  //test
+  let event = new Event()
+  function clock() {
+    console.log('铃铃铃a~起床啦')
+  }
+
+  event._addEventListener('wakeUp', clock)
+  event._dispatchEvent('wakeUp')
+</script>
+
+</html>
