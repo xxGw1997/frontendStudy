@@ -19,7 +19,11 @@ class MyPromise {
         this.reason = reason
       }
     }
-    excutor(resolve, reject)
+    try {
+      excutor(resolve, reject)
+    } catch (error) {
+      reject(error)
+    }
   }
 
   then(onFulfilled, onRejected) {
