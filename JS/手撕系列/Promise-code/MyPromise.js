@@ -73,7 +73,7 @@ class MyPromise {
 
     let promise2 = new MyPromise((resolve, reject) => {
       if (this.status === FULFILLED) {
-        setTimeout(() => {
+        setTimeout(() => {  //调用时,x的值还没有,所以需要放入异步任务队列中
           try {
             let x = onFulfilled(this.value)
             resolvePromise(promise2, x, resolve, reject)
