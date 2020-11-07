@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>行内元素水平垂直居中</title>
+</head>
+<style>
+  .wrap {
+    width: 100%;
+    height: 200px;
+    background: aquamarine;
+    border: 1px solid salmon;
+
+    /*方案*/
+    /*line-height设置成与height值相等*/
+    line-height: 200px;
+    text-align: center;
+  }
+
+  .inner {
+    border: 1px solid lawngreen;
+  }
+</style>
+
+<body>
+  <div class="wrap">
+    <span class="inner">行内元素</span>
+  </div>
+</body>
+
+</html>
