@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>BFC</title>
+</head>
+<style>
+  .div1 {
+    background: hotpink;
+  }
+
+  .div1>div {
+    margin: 20px 0;
+    height: 20px;
+    background: brown;
+  }
+
+  .clearfix::before,
+  .clearfix::after {
+    content: ' ';
+    display: table;
+    clear: both;
+  }
+</style>
+
+<body>
+  <!-- 在日常工作中BFC的产生的影响就是防止外边距重叠 -->
+  示例:子元素的前一个的下边距与后一个的上边距没有叠加,而是重合,并且第一个子元素和最后一个子元素的上外边距和下外边距消失了
+  <div class="div1">
+    <div class="inner1"></div>
+    <div class="inner2"></div>
+    <div class="inner3"></div>
+    <div class="inner4"></div>
+    <div class="inner5"></div>
+  </div>
+
+  <div style="margin-top:50px;">
+    解决办法:1、首先给父元素添加overflow:hidden; 就能把首尾子元素的上下外边距恢复,
+    <br>2、给父元素添加伪类
+  </div>
+  <div class="div1 clearfix">
+    <div class="inner1"></div>
+    <div class="inner2"></div>
+    <div class="inner3"></div>
+    <div class="inner4"></div>
+    <div class="inner5"></div>
+  </div>
+</body>
+
+</html>
