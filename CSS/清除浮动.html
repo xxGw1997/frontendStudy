@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>清除浮动</title>
+</head>
+<style>
+  .wrap {
+    border: 1px solid seagreen;
+  }
+
+  .inner {
+    width: 100px;
+    height: 100px;
+    float: left;
+  }
+
+  .wrap1 {
+    border: 1px solid red;
+  }
+
+  .inner1 {
+    width: 100px;
+    height: 100px;
+    background: forestgreen;
+    float: left;
+  }
+
+  .wrap2 {
+    margin-top: 200px;
+  }
+
+  .inner2 {
+    background: darkblue;
+  }
+
+  .wrap3 {
+    margin-top: 200px;
+  }
+
+  .inner3 {
+    background: seagreen;
+  }
+
+  .wrap4 {
+    margin-top: 200px;
+    /* 添加伪类选择器 */
+  }
+
+  .wrap4:after {
+    /* 设置内容为空 */
+    content: '';
+    /* 添加子元素为块级元素 */
+    display: block;
+    /* 设置子元素的高度为0 */
+    height: 0;
+    /* 设置子元素不可见 */
+    visibility: hidden;
+    /* 清除浮动 */
+    clear: both;
+  }
+
+  .inner4 {
+    background: slateblue;
+  }
+</style>
+
+<body>
+  元素浮动后就会脱离文档流,<br>
+  无法撑起其父元素的高度,<br>
+  会造成父元素高度塌陷的问题<br>
+  示例1:
+  <div class="wrap wrap1">
+    <div class="inner inner1">浮动元素</div>
+  </div>
+  <div class="wrap wrap2">
+    解决方案1:添加额外标签
+    <div class="inner inner2">浮动元素</div>
+    <!-- 添加额外标签 -->
+    <div style="clear:both"></div>
+  </div>
+  <div class="wrap wrap3" style="overflow: hidden;">
+    解决方案2:父级添加overflow:hidden; 或者父元素定高
+    <div class="inner inner3">
+      浮动元素
+    </div>
+  </div>
+  <div class="wrap wrap4">
+    解决方案3:给父元素添加伪类选择器清除浮动(最优方案)<br>
+    这种方案相对方案2,可以不添加多余的dom去解决该问题
+    <div class="inner inner4">
+      浮动元素
+    </div>
+  </div>
+</body>
+
+</html>
