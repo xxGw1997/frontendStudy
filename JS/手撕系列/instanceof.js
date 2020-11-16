@@ -4,8 +4,8 @@
 // 所以需要遍历左边的原型链,直到找到右边的prototype,或者为null(因为原型链的尽头就是null),则返回false
 
 function _instanceof(left,right){
-    const rightVal = right.prototype
-    const leftVal = left.__proto__
+    let rightVal = right.prototype
+    let leftVal = left.__proto__
     while(true){
         if(leftVal === null) return false     //找到尽头还没找到直接false
         if(leftVal === rightVal) return true    //找到了返回true
@@ -21,9 +21,8 @@ Animal.prototype.say = function(something){
     console.log(`${this.type}说something`)
 }
 
-function Cat(){
-}
 
 
+console.log('原生:Animal instanceof Object:',Animal instanceof Object)
 
-console.log('原生:',)
+console.log('手写:Animal instanceof Object:',_instanceof(Animal,Object))
