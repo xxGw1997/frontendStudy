@@ -5,3 +5,16 @@ body {
     background: palegreen;
     height: 100%;
 }
+
+#box1 {
+    height: 100px;
+    background: url(./assets/imgs/1.jpg);
+    background-size: 100% 100%;
+}
+
+#box2 {
+    margin-top: 100px;
+    height: 100px;
+    background: url(./assets/imgs/2.jpg);
+    background-size: 100% 100%;
+}
