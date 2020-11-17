@@ -1,17 +1,22 @@
 {
-  "name": "webpack_study",
+  "name": "webpack",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer": "^10.0.2",
     "css-loader": "^5.0.1",
+    "html-webpack-plugin": "^4.5.0",
+    "less": "^3.12.2",
+    "less-loader": "^7.1.0",
+    "postcss-loader": "^4.0.4",
     "style-loader": "^2.0.0",
-    "webpack": "^5.4.0",
+    "webpack": "^5.5.0",
     "webpack-cli": "^4.2.0"
   }
 }
