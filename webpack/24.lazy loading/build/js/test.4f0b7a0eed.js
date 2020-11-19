@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[1],[,function(n,t,u){"use strict";function o(n,t){return n*t}function r(n,t){return n-t}u.r(t),u.d(t,"mul",(function(){return o})),u.d(t,"sub",(function(){return r})),console.log("test.js文件被加载了...")}]]);
