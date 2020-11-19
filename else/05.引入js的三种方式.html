@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>引入js的三种方式</title>
+</head>
+<style>
+    div{
+        width: 100px;
+        height:100px;
+        background: salmon;
+    }
+</style>
+<body>
+    <!-- 行间式 -->
+    <div onclick="console.log('内嵌式')"></div>
+</body>
+<!-- 嵌入式 -->
+<script>
+    window.onload=function(){
+        console.log('嵌入式script');
+    }
+</script>
+<!-- 引入外部js文件 -->
+<script src="./01.返回参数类型.js"></script>
+</html>
