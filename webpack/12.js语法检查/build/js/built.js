@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("function add(x, y) {\n    return x + y;\n}\n\n// 下一行eslint所有规则都失效,下一行不进行eslint检查\n// eslint-disable-next-line\nconsole.log(add(2, 5));\n\n//# sourceURL=webpack:///./src/js/index.js?");
+eval("function add(x, y) {\n  return x + y;\n}\n\n// 下一行eslint所有规则都失效,下一行不进行eslint检查\n// eslint-disable-next-line\nconsole.log(add(2, 5));\n\n//# sourceURL=webpack:///./src/js/index.js?");
 
 /***/ })
 
