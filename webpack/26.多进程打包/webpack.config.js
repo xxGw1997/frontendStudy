@@ -67,14 +67,16 @@ module.exports = {
             test: /\.js$/,
             exclude: /node_modules/,
             use: [
-              //开启多进程打包
-              //开启进程启动大概600ms ,进程通信也有开销
-              //工作消耗时间比较长,才需要多进程打包
+              /*
+                开启多进程打包
+                多进程启动大概为600ms，进程通信也有开销。
+                只有工作消耗时间比较长，才进行多进程打包。此处开启多进程，打包时间更长。
+              */
               {
                 loader: 'thread-loader',
                 options: {
-                  workers: 2 //进程2个
-                }
+                  workers: 2,
+                },
               },
               {
                 loader: 'babel-loader',
@@ -101,9 +103,8 @@ module.exports = {
                   // 第二次构建时，会读取之前的缓存
                   cacheDirectory: true,
                 },
-              }
+              },
             ],
-
           },
           // 打包图片资源
           {
