@@ -3,7 +3,7 @@ function checkArgType(target) {
 }
 
 //方式1:手写
-function lowCopy1(obj) {
+function lowClone(obj) {
     let copyObj
     checkArgType(obj) === 'Object' ? copyObj = {} : copyObj = []
     for(let i in obj){
