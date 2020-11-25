@@ -11,10 +11,12 @@
 
 let twoSum = function(arr,target){
     let temp = new Map()
-    for(let i=0,len=arr.length;i<len;i++){
-        let diff = target - arr[i]
+    let len = arr.length
+    let diff
+
+    for(let i=0;i<len;i++){
+        diff = target - arr[i]
         if(temp.has(diff)){
-            console.log('temp:',temp)
             return [temp.get(diff),i]
         }
         temp.set(arr[i],i)
@@ -22,4 +24,4 @@ let twoSum = function(arr,target){
     return 'no result'
 }
 
-console.log(twoSum([2,7,11,15],17))
+console.log(twoSum([2,7,11,15],13))
