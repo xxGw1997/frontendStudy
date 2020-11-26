@@ -12,27 +12,44 @@
  1、1、2、3、5、8、13、21、34
 */
 
-let fibonaqi = function(n){
-    let arr = []
-    arr[0] = 0
-    arr[1] = 1
-    for(let i = 2;i<=n;i++){
+let fibonaqi = function (n) {
+    let arr = [0, 1]
+    for (let i = 2; i < n; i++) {
         arr[i] = arr[i-1] + arr[i-2]
     }
     return arr[n]
 }
+
+
+
+
+
+
+
+
+
+
+
+// let fibonaqi = function(n){
+//     let arr = []
+//     arr[0] = 0
+//     arr[1] = 1
+//     for(let i = 2;i<=n;i++){
+//         arr[i] = arr[i-1] + arr[i-2]
+//     }
+//     return arr[n]
+// }
 let startTime
 let endTime
-startTime= BigInt(Date.now())
-console.log("startTime:"+Date.now())
+startTime = BigInt(Date.now())
+console.log("startTime:" + Date.now())
 
 
-let result =  BigInt(fibonaqi(1000))
+let result = BigInt(fibonaqi(1000))
 
 
 
 endTime = BigInt(Date.now())
-console.log("endTime:"+Date.now())
-console.log('result:fibonaqi(1000)='+result)
-console.log('耗时:'+ (endTime - startTime))
-
+console.log("endTime:" + Date.now())
+console.log('result:fibonaqi(1000)=' + result)
+console.log('耗时:' + (endTime - startTime))
