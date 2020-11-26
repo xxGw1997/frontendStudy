@@ -24,17 +24,41 @@
     请注意，输入数组是以「引用」方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。
 
  */
-
- let deleteSame = function(arr){
-    let slowI = 0
-    let len = arr.length
-    for(let quickI = 0;quickI < len ; quickI++){
-        if(arr[slowI] !== arr[quickI]){
-            slowI ++
-            arr[slowI] = arr[quickI]
+    let deleteSame = function(arr){
+        let slowI = 0
+        let len = arr.length
+        for(let quickI=0;quickI<len;quickI++){
+            if(arr[slowI]!==arr[quickI]){
+                slowI++
+                arr[slowI] = arr[quickI]
+            }
         }
+        return slowI + 1
     }
-    return slowI + 1
- }
 
- console.log(deleteSame([1,1,2,2,3,4,5,6,7,7,7,8,8]))
+    console.log(deleteSame([1,1,2,2,3,4,5,6,7,7,7,8,8]))
+
+
+
+
+
+
+
+
+
+
+
+
+//  let deleteSame = function(arr){
+//     let slowI = 0
+//     let len = arr.length
+//     for(let quickI = 0;quickI < len ; quickI++){
+//         if(arr[slowI] !== arr[quickI]){
+//             slowI ++
+//             arr[slowI] = arr[quickI]
+//         }
+//     }
+//     return slowI + 1
+//  }
+
+//  console.log(deleteSame([1,1,2,2,3,4,5,6,7,7,7,8,8]))
