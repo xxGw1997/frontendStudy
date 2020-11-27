@@ -18,11 +18,27 @@
 let onlyOneNumber = function(arr){
     let res = 0
     let len = arr.length
-    for(let i=0;i<len;i++){
+    for(let i = 0; i<len;i++){
         res = res ^ arr[i]
     }
     return res
 }
+
+
+
+
+
+
+
+
+// let onlyOneNumber = function(arr){
+//     let res = 0
+//     let len = arr.length
+//     for(let i=0;i<len;i++){
+//         res = res ^ arr[i]
+//     }
+//     return res
+// }
 
 console.log(onlyOneNumber([1,2,3,4,5,6,7,8,9,9,8,7,6,5,4,3,2]))
 
