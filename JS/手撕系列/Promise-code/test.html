@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./MyPromise-class.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    let p = new PromiseClass((resolve, reject) => {
+        setTimeout(() => {
+            resolve('解决')
+            console.log('xxgw')
+        }, 1000);
+    })
+    p.then(value => {
+        console.log(value)
+    },reason=>{
+        console.log(reason)
+    })
+    console.log('ywx')
+</script>
+
+</html>
