@@ -18,8 +18,8 @@ class PromiseClass {
             this.status = PromiseClass.FUFILED
             this.value = value
             setTimeout(() => {
-                this.callbacks.map(cb=>{
-                    cb.onFulfilled.call(this,value)
+                this.callbacks.map(cb => {
+                    cb.onFulfilled.call(this, value)
                 })
             })
         }
@@ -29,8 +29,8 @@ class PromiseClass {
             this.status = PromiseClass.REJECTED
             this.value = reason
             setTimeout(() => {
-                this.callbacks.map(cb=>{
-                    cb.onRejected.call(this,reason)
+                this.callbacks.map(cb => {
+                    cb.onRejected.call(this, reason)
                 })
             })
         }
@@ -38,50 +38,99 @@ class PromiseClass {
 
     then(onFulfilled, onRejected) {
         if (typeof onFulfilled !== 'function') {
-            onFulfilled = () => {}
+            onFulfilled = () => this.value
         }
         if (typeof onRejected !== 'function') {
-            onRejected = () => {}
+            onRejected = () => this.value
         }
 
-        if(this.status == PromiseClass.PENDING){
-            this.callbacks.push({
-                onFulfilled:value=>{
-                    try {
-                        onFulfilled(value)
-                    } catch (error) {
-                        onRejected(error)
+        let promise = new PromiseClass((resolve, reject) => {
+            if (this.status == PromiseClass.PENDING) {
+                this.callbacks.push({
+                    onFulfilled: value => {
+                        this.parse(promise,onFulfilled(value),resolve,reject)
+                    },
+                    onRejected: value => {
+                        this.parse(promise,onRejected(value),resolve,reject)
                     }
-                },
-                onRejected:value=>{
-                    try {
-                        onRejected(value)
-                    } catch (error) {
-                        onRejected(error)
-                    }
-                }
-            })
-        }
+                })
+            }
+            if (this.status == PromiseClass.FUFILED) {
+                setTimeout(() => {
+                    this.parse(promise,onFulfilled(this.value),resolve,reject)
+                });
+            }
+            if (this.status == PromiseClass.REJECTED) {
+                setTimeout(() => {
+                    this.parse(promise,onRejected(this.value),resolve,reject)
+                });
+            }
+        })
+        return promise
+    }
 
-
-        if (this.status == PromiseClass.FUFILED) {
-            setTimeout(() => {
-                try {
-                    onFulfilled(this.value)
-                } catch (error) {
-                    onRejected(error)
-                }
-            });
+    parse(promise,res,resolve,reject){
+        if(promise === res){
+            throw new TypeError('Chaining cycle detected')
         }
-        if (this.status == PromiseClass.REJECTED) {
-            setTimeout(() => {
-                try {
-                    onRejected(this.value)
-                } catch (error) {
-                    onRejected(error)
-                }
-            });
+        try {
+            if(res instanceof PromiseClass){
+                res.then(resolve,reject)
+            }else{
+                resolve(res)
+            }
+        } catch (error) {
+            reject(error)
         }
     }
+
+    static resolve(value){
+        return new PromiseClass((resolve,reject)=>{
+            if(value instanceof PromiseClass){
+                value.then(resolve,reject)
+            }else{
+                resolve(value)
+            }
+        })
+    }
+
+    static reject(value){
+        return new PromiseClass((resolve,reject)=>{
+            if(value instanceof PromiseClass){
+                value.then(resolve,reject)
+            }else{
+                reject(value)
+            }
+        })
+    }
+
+    static all(promises){
+        const values = []
+        return new PromiseClass((resolve,reject)=>{
+            promises.forEach(promise=>{
+                promise.then(value=>{
+                    values.push(value)
+                    if(values.length == promises.length){
+                        resolve(values)
+                    }
+                },reason=>{
+                    reject(reason)
+                })
+            })
+        })
+    }
+
+    static race(promises){
+        return new PromiseClass((resolve,reject)=>{
+            promises.map(promise=>{
+                promise.then(value=>{
+                    resolve(value)
+                },reason=>{
+                    reject(reason)
+                })
+            })
+        })
+    }
+
 
 }

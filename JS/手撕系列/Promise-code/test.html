@@ -12,18 +12,67 @@
 
 </body>
 <script>
-    let p = new PromiseClass((resolve, reject) => {
-        setTimeout(() => {
-            resolve('解决')
-            console.log('xxgw')
-        }, 1000);
-    })
-    p.then(value => {
-        console.log(value)
-    },reason=>{
-        console.log(reason)
-    })
-    console.log('ywx')
+    // let p1 = new PromiseClass((resolve,reject)=>{
+    //     resolve('解决')
+    // })
+    // let p2 = p1.then(value=>{
+    //     return p2
+    // })
+
+    // PromiseClass.resolve('ywx').then(value=>{
+    //     console.log(value)
+    // })
+
+    // let p3 = new PromiseClass((resolve,reject)=>{
+    //     resolve('成功')
+    // })
+
+    // PromiseClass.resolve(p3).then(value=>{
+    //     console.log(value)
+    // })
+
+    // let p4 = new PromiseClass((resolve,reject)=>{
+    //     resolve('失败')
+    // })
+
+    // PromiseClass.reject(p4).then(value=>{
+    //     console.log(value)
+    // })
+
+    // let p5 = new PromiseClass((resolve,reject)=>{
+    //     reject('hhh')
+    // })
+
+    // let p6 = new PromiseClass(resolve=>{
+    //     resolve('iii')
+    // })
+
+    // PromiseClass.all([p5,p6]).then(value=>{
+    //     console.log(value)
+    // },reason=>{
+    //     console.log(reason)
+    // })
+
+
+
+    // let p = new PromiseClass((resolve, reject) => {
+    //     setTimeout(() => {
+    //         resolve('解决')
+    //     },1000);
+    // }).then(value=>{
+    //     console.log('success:',value)
+    //     return new PromiseClass((resolve,reject)=>{
+    //         // resolve('小轩')
+    //         reject('小轩轩')
+    //     })
+    // },reason=>{
+    //     console.log('error:',reason)
+    // }).then(value=>{
+    //     console.log(value)
+    // },reason=>{
+    //     console.log('rejected:',reason)
+    // })
+    // console.log('ywx')
 </script>
 
 </html>
