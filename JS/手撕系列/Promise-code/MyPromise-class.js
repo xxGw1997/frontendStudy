@@ -1,6 +1,6 @@
 class PromiseClass {
     static PENDING = "pending"
-    static FUFILED = "FULFILED"
+    static FUFILED = "fulfiled"
     static REJECTED = "rejected"
     constructor(executor) {
         this.status = PromiseClass.PENDING

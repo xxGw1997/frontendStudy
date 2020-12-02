@@ -9,7 +9,7 @@ class Ywx {
         try {
             executor(this.resolve.bind(this), this.reject.bind(this))
         } catch (error) {
-
+            this.reject(error)
         }
     }
 
@@ -59,13 +59,13 @@ class Ywx {
 
             if (this.status === Ywx.FUFILED) {
                 setTimeout(() => {
-                    this.parse(promise, onFufiled(value), resolve, reject)
+                    this.parse(promise, onFufiled(this.value), resolve, reject)
                 });
             }
 
             if (this.status === Ywx.REJECTED) {
                 setTimeout(() => {
-                    this.parse(promise, onRejected(value), resolve, reject)
+                    this.parse(promise, onRejected(this.value), resolve, reject)
                 });
             }
         })
@@ -86,6 +86,54 @@ class Ywx {
         } catch (error) {
             reject(error)
         }
+    }
+
+    static resolve(value){
+        return new Ywx((resolve,reject)=>{
+            if(value instanceof Ywx){
+                value.then(resolve,reject)
+            }else{
+                resolve(value)
+            }
+        })
+    }
+
+    static reject(value){
+        return new Ywx((resolve,reject)=>{
+            if(value instanceof Ywx){
+                value.then(resolve,reject)
+            }else{
+                reject(value)
+            }
+        })
+    }
+
+    static all(promises){
+        const values = []
+        return new Ywx((resolve,reject)=>{
+            promises.forEach(promise=>{
+                promise.then(value=>{
+                    values.push(value)
+                    if(values.length == promise.length){
+                        resolve(values)
+                    }
+                },reason=>{
+                    reject(reason)
+                })
+            })
+        })
+    }
+
+    static race(promises){
+        return new Ywx((resolve,reject)=>{
+            promises.forEach(promise=>{
+                promise.then(value=>{
+                    resolve(value)
+                },reason=>{
+                    reject(reason)
+                })
+            })
+        })
     }
 
 

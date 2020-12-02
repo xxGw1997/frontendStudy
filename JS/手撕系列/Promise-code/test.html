@@ -73,6 +73,21 @@
     //     console.log('rejected:',reason)
     // })
     // console.log('ywx')
+
+    let test = new PromiseClass((resolve,reject)=>{
+        setTimeout(() => {
+            resolve('asd')
+        },1000);
+        console.log('456')
+    })
+    test.then(suc=>{
+        console.log(suc)
+        console.log('123')
+    },fai=>{
+        console.log(fai)
+    })
+    console.log(test)
+
 </script>
 
 </html>
