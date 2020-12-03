@@ -135,4 +135,69 @@ class MP{
             reject(error)
         }
     }
+
+    //构造函数上的成功方法
+    //其实就是返回一个promise实例并且把值传给调用其中成功的方法就行,其他的与正常对象调用一样
+    static resolve(value){
+        return new MP((resolve,reject)=>{
+            if(value instanceof MP){
+                value.then(resolve,reject)
+            }else{
+                resolve(value)
+            }
+        })
+    }
+
+
+    //失败执行的方法
+    static reject(value){
+        return new MP((resolve,reject)=>{
+            if(value instanceof MP){
+                value.then(resolve,reject)
+            }else{
+                reject(value)
+            }
+        })
+    }
+
+    //all方法就是传入一个promise数组,其中只要有一个失败则就执行失败
+    //需要所有的promise都成功才算成功
+    //为了实现链式调用只需要返回一个新的promise就行
+    static all(promises){
+        const values = []   //用于保存传入的promise数组的结果,每成功一个就往数组中添加成功的结果
+        return new MP((resolve,reject)=>{
+            //循环遍历每一个promise
+            promises.forEach(promise=>{
+                //执行promise的then方法
+                promise.then(value=>{
+                    //如果成功了就会走这个方法,把成功的方法的返回值给压入values数组中
+                    values.push(value)
+                    //只有当传入的promises数组的长度等于values的长度时才执行MP的成功方法
+                    if(promises.length == values.length){
+                        resolve(values)
+                    }
+                },reason=>{
+                    //只要有一个promise失败就执行MP的失败方法
+                    reject(reason)
+                })
+            })
+        })
+    }
+
+    //race方法是传入一个promise数组,只要其中哪个先返回结果,不论成功还是失败都将这个返回的结果return
+    //同样为了实现链式调用需要返回一个新的promise实例
+    static race(promises){
+        return new MP((resolve,reject)=>{
+            //遍历传入的promises数组
+            promises.forEach(promise=>{
+                //因为promise的状态是不可逆的,
+                //所以只要其中某一个promise有结果了将结果作为参数就调用返回MP实例的对应的回调即可
+                promise.then(value=>{
+                    resolve(value)
+                },reason=>{
+                    reject(reason)
+                })
+            })
+        })
+    }
 }
