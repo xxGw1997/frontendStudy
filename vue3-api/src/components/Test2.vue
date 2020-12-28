@@ -14,7 +14,7 @@ export default {
         let plus = ()=>{
             ctx.emit('plus',100)
         }
-        console.log(ctx)
+        // console.log(ctx)
         return {
             plus
         }

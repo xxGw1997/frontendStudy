@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import {ref,toRef,toRefs, reactive,shallowRef,watchEffect, triggerRef,computed,watch, toRaw, markRaw} from 'vue'
+import {ref,toRef,toRefs, reactive,shallowRef,watchEffect, triggerRef,computed,watch, toRaw, markRaw,getCurrentInstance,
+       onBeforeMount,onMounted } from 'vue'
 import Test from '@/components/Test'
 import Test2 from '@/components/Test2'
 export default {
@@ -155,6 +156,20 @@ export default {
     console.log('proxyMarkObj:',proxyMarkObj)
 
 
+    //getCurrentInstance  获取当前实例
+
+    const instance = getCurrentInstance()
+    console.log("instance:",instance)
+
+    //生命周期
+    onBeforeMount(()=>{
+      console.log('生命周期:onBeforeMount')
+    })
+
+    onMounted(()=>{
+      console.log('生命周期:onMounted')
+    })
+    
     return {
       title,
       count,
