@@ -19,14 +19,23 @@
 //   };
 
 
-Function.prototype.myCall = function (context = globalThis) {
-  let args = Array.from(arguments).slice(1)
-  context.fn = this
-  let res = args.length > 0 ? context.fn(args) : context.fn()
-  delete context.fn
-  return res
-}
+// Function.prototype.myCall = function (context = globalThis) {
+//   let args = Array.from(arguments).slice(1)
+//   context.fn = this
+//   let res = args.length > 0 ? context.fn(args) : context.fn()
+//   delete context.fn
+//   return res
+// }
 
+
+
+Function.prototype._call = function(context = globalThis,...args){
+  let _this = this,
+      key = Symbol('KEY')
+  context[key] = _this
+  context[key](...args)
+  delete context[key]
+}
 
 
 
